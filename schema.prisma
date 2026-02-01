@@ -1,0 +1,36 @@
+// Prisma schema for Supabase Postgres
+// Models nodes and edges from graph.json
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+
+model nodes {
+  id                Int      @id @default(autoincrement())
+  node_id           String   @unique
+  utility_qubits    Int
+  bonus_bell_pairs  Int
+  capacity          Int
+  owned             Int
+  // Add more fields if needed
+  edgesFrom         Edge[]   @relation("EdgeFromNode")
+  edgesTo           Edge[]   @relation("EdgeToNode")
+}
+
+model edges {
+  id                 Int      @id @default(autoincrement())
+  fromNode           Node     @relation("EdgeFromNode", fields: [fromNodeId], references: [id])
+  fromNodeId         Int
+  toNode             Node     @relation("EdgeToNode", fields: [toNodeId], references: [id])
+  toNodeId           Int
+  base_threshold     Float
+  difficulty_rating  Int
+  successful_attempts Int
+  x_weight           Float
+  y_weight           Float
+}
