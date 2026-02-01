@@ -1,0 +1,401 @@
+id,node_id
+2001,College Park, MD
+2002,Bothell, WA
+2003,Rome, NY
+2004,Chattanooga, TN
+2005,Chicago, IL
+2006,Toronto, Canada
+2007,Vista, CA
+2009,San Francisco, CA
+2010,Pleasanton, CA
+2011,Denver, CO
+2012,Seattle, WA
+2013,Portland, OR
+2014,Los Angeles, CA
+2015,San Diego, CA
+2016,Las Vegas, NV
+2017,Salt Lake City, UT
+2018,Phoenix, AZ
+2019,Austin, TX
+2020,Dallas, TX
+2021,Houston, TX
+2022,San Antonio, TX
+2023,New Orleans, LA
+2024,Atlanta, GA
+2025,Miami, FL
+2026,Orlando, FL
+2027,Raleigh, NC
+2028,Charlotte, NC
+2029,Nashville, TN
+2030,Washington, DC
+2033,Pittsburgh, PA
+2034,Detroit, MI
+2035,Columbus, OH
+2036,Indianapolis, IN
+2037,St. Louis, MO
+2038,Kansas City, MO
+2039,Minneapolis, MN
+2040,Vancouver, Canada
+2041,Calgary, Canada
+2042,Edmonton, Canada
+2043,Winnipeg, Canada
+2044,Montreal, Canada
+2045,Ottawa, Canada
+2046,Quebec City, Canada
+2047,Halifax, Canada
+2048,Milwaukee, WI
+2049,Buffalo, NY
+2051,Boise, ID
+2054,Zurich, Switzerland
+2057,Manchester, UK
+2058,Edinburgh, UK
+2059,Dublin, Ireland
+2063,Berlin, Germany
+2064,Munich, Germany
+2065,Frankfurt, Germany
+2066,Hamburg, Germany
+2068,Rotterdam, Netherlands
+2069,Brussels, Belgium
+2070,Vienna, Austria
+2077,Lisbon, Portugal
+2080,Athens, Greece
+2082,Prague, Czechia
+2083,Budapest, Hungary
+2084,Daejeon, South Korea
+2085,Seoul, South Korea
+2088,Osaka, Japan
+2089,Sapporo, Japan
+2093,Sydney, Australia
+2094,Melbourne, Australia
+2095,Brisbane, Australia
+2096,Perth, Australia
+2097,Auckland, New Zealand
+2098,Wellington, New Zealand
+2100,Reykjavik, Iceland
+2104,Palo Alto, CA
+2105,Pasadena, CA
+2106,Boulder, CO
+2107,Ann Arbor, MI
+2108,Madison, WI
+2109,Urbana, IL
+2110,Ithaca, NY
+2112,Berkeley, CA
+2113,Santa Barbara, CA
+2114,Tucson, AZ
+2115,Albuquerque, NM
+2087,Tokyo, Japan
+2092,Singapore
+2099,Tel Aviv, Israel
+2060,Paris, France
+2055,Oxford, UK
+2032,New York, NY
+2102,Cambridge, MA
+2062,Marseille, France
+2111,New Haven, CT
+2103,Princeton, NJ
+2071,Copenhagen, Denmark
+2050,Providence, RI
+2008,Boston, MA
+2067,Amsterdam, Netherlands
+2101,Tallinn, Estonia
+2031,Philadelphia, PA
+2081,Warsaw, Poland
+2074,Helsinki, Finland
+2072,Stockholm, Sweden
+2086,Busan, South Korea
+2090,Fukuoka, Japan
+2091,Taipei, Taiwan
+2073,Oslo, Norway
+2061,Lyon, France
+2053,Geneva, Switzerland
+2052,Basel, Switzerland
+2079,Milan, Italy
+2078,Rome, Italy
+2116,Honolulu, HI
+2117,Anchorage, AK
+2119,Richmond, VA
+2120,Tampa, FL
+2121,Jacksonville, FL
+2122,Cincinnati, OH
+2123,Cleveland, OH
+2124,Oklahoma City, OK
+2125,Omaha, NE
+2126,Memphis, TN
+2127,Victoria, Canada
+2128,Saskatoon, Canada
+2129,Waterloo, Canada
+2130,Cambridge, UK
+2131,Glasgow, UK
+2134,Leeds, UK
+2140,Cologne, Germany
+2141,Stuttgart, Germany
+2142,Dresden, Germany
+2143,Aachen, Germany
+2144,Heidelberg, Germany
+2145,Innsbruck, Austria
+2146,Graz, Austria
+2147,Gothenburg, Sweden
+2151,Gdansk, Poland
+2152,Brno, Czechia
+2153,Bratislava, Slovakia
+2154,Ljubljana, Slovenia
+2155,Zagreb, Croatia
+2156,Bucharest, Romania
+2157,Sofia, Bulgaria
+2158,Porto, Portugal
+2160,Seville, Spain
+2161,Bilbao, Spain
+2164,Bologna, Italy
+2178,Bangkok, Thailand
+2182,Ho Chi Minh City, Vietnam
+2183,Hanoi, Vietnam
+2187,Abu Dhabi, UAE
+2188,Doha, Qatar
+2189,Riyadh, Saudi Arabia
+2191,Johannesburg, South Africa
+2192,Cape Town, South Africa
+2193,Sao Paulo, Brazil
+2194,Rio de Janeiro, Brazil
+2195,Buenos Aires, Argentina
+2196,Santiago, Chile
+2197,Bogota, Colombia
+2198,Lima, Peru
+2199,Mexico City, Mexico
+2200,Guadalajara, Mexico
+2201,Monterrey, Mexico
+2202,Durham, NC
+2203,Evanston, IL
+2204,San Jose, CA
+2205,Irvine, CA
+2206,Santa Cruz, CA
+2207,Davis, CA
+2208,La Jolla, CA
+2209,Rochester, NY
+2210,Syracuse, NY
+2211,Albany, NY
+2213,Worcester, MA
+2214,Hanover, NH
+2215,Burlington, VT
+2216,Portland, ME
+2217,State College, PA
+2218,Bethlehem, PA
+2219,Blacksburg, VA
+2220,Charlottesville, VA
+2221,Chapel Hill, NC
+2222,Gainesville, FL
+2223,Tallahassee, FL
+2224,Lexington, KY
+2225,Louisville, KY
+2226,Knoxville, TN
+2227,Huntsville, AL
+2228,Birmingham, AL
+2229,Baton Rouge, LA
+2230,Little Rock, AR
+2168,Hong Kong
+2173,Mumbai, India
+2166,Shanghai, China
+2190,Cairo, Egypt
+2186,Dubai, UAE
+2179,Kuala Lumpur, Malaysia
+2132,Bristol, UK
+2180,Jakarta, Indonesia
+2212,Hartford, CT
+2135,Delft, Netherlands
+2167,Shenzhen, China
+2169,Guangzhou, China
+2136,Eindhoven, Netherlands
+2118,Baltimore, MD
+2149,Turku, Finland
+2148,Uppsala, Sweden
+2165,Beijing, China
+2171,Nanjing, China
+2170,Hangzhou, China
+2181,Manila, Philippines
+2150,Krakow, Poland
+2174,Delhi, India
+2138,Toulouse, France
+2137,Grenoble, France
+2163,Turin, Italy
+2139,Nice, France
+2162,Florence, Italy
+2231,Tulsa, OK
+2232,El Paso, TX
+2233,Fort Worth, TX
+2234,Waco, TX
+2235,Lubbock, TX
+2236,Colorado Springs, CO
+2237,Fort Collins, CO
+2238,Tempe, AZ
+2239,Provo, UT
+2240,Spokane, WA
+2241,Eugene, OR
+2242,Reno, NV
+2243,Sacramento, CA
+2244,Fresno, CA
+2245,Bakersfield, CA
+2246,Long Beach, CA
+2247,Riverside, CA
+2248,St. John's, Canada
+2249,Regina, Canada
+2250,Hamilton, Canada
+2251,London, Canada
+2252,Kingston, Canada
+2253,Sherbrooke, Canada
+2254,Liverpool, UK
+2255,Newcastle, UK
+2256,Sheffield, UK
+2258,Belfast, UK
+2259,Cardiff, UK
+2261,Cork, Ireland
+2262,Galway, Ireland
+2264,Nantes, France
+2265,Strasbourg, France
+2266,Lille, France
+2268,Rennes, France
+2269,Bonn, Germany
+2270,Dusseldorf, Germany
+2271,Hanover, Germany
+2272,Leipzig, Germany
+2273,Nuremberg, Germany
+2274,Dortmund, Germany
+2275,Essen, Germany
+2276,Bremen, Germany
+2277,Salzburg, Austria
+2278,Linz, Austria
+2279,Antwerp, Belgium
+2280,Ghent, Belgium
+2282,Utrecht, Netherlands
+2284,Groningen, Netherlands
+2285,Luxembourg City
+2288,Malmo, Sweden
+2290,Aarhus, Denmark
+2291,Bergen, Norway
+2294,Oulu, Finland
+2296,Vilnius, Lithuania
+2299,Lviv, Ukraine
+2301,Moscow, Russia
+2304,Thessaloniki, Greece
+2305,Istanbul, Turkey
+2306,Ankara, Turkey
+2307,Izmir, Turkey
+2308,Incheon, South Korea
+2309,Daegu, South Korea
+2316,Taichung, Taiwan
+2317,Hsinchu, Taiwan
+2320,Chengdu, China
+2324,Chongqing, China
+2329,Ahmedabad, India
+2332,Roorkee, India
+2335,Islamabad, Pakistan
+2336,Dhaka, Bangladesh
+2337,Colombo, Sri Lanka
+2338,Kathmandu, Nepal
+2339,Yangon, Myanmar
+2340,Phnom Penh, Cambodia
+2341,Da Nang, Vietnam
+2342,Penang, Malaysia
+2334,Karachi, Pakistan
+2260,Southampton, UK
+2311,Yokohama, Japan
+2283,Leiden, Netherlands
+2343,Johor Bahru, Malaysia
+2314,Sendai, Japan
+2326,Dalian, China
+2344,Surabaya, Indonesia
+2289,Lund, Sweden
+2281,Leuven, Belgium
+2302,St. Petersburg, Russia
+2293,Tampere, Finland
+2295,Riga, Latvia
+2318,Hefei, China
+2310,Gwangju, South Korea
+2325,Qingdao, China
+2322,Suzhou, China
+2323,Tianjin, China
+2319,Wuhan, China
+2321,Xi'an, China
+2330,Kanpur, India
+2327,Ningbo, China
+2315,Kaohsiung, Taiwan
+2292,Trondheim, Norway
+2333,Lahore, Pakistan
+2331,Kharagpur, India
+2267,Montpellier, France
+2328,Kolkata, India
+2287,Lausanne, Switzerland
+2286,Bern, Switzerland
+2263,Bordeaux, France
+2345,Bandung, Indonesia
+2346,Cebu City, Philippines
+2348,Adelaide, Australia
+2349,Canberra, Australia
+2350,Gold Coast, Australia
+2351,Christchurch, New Zealand
+2355,Kuwait City, Kuwait
+2356,Manama, Bahrain
+2357,Muscat, Oman
+2360,Casablanca, Morocco
+2361,Rabat, Morocco
+2363,Algiers, Algeria
+2364,Lagos, Nigeria
+2365,Nairobi, Kenya
+2366,Addis Ababa, Ethiopia
+2367,Dar es Salaam, Tanzania
+2368,Durban, South Africa
+2369,Pretoria, South Africa
+2370,Accra, Ghana
+2371,Dakar, Senegal
+2372,Mauritius
+2373,Curitiba, Brazil
+2374,Belo Horizonte, Brazil
+2375,Brasilia, Brazil
+2376,Porto Alegre, Brazil
+2377,Campinas, Brazil
+2378,Cordoba, Argentina
+2379,Mendoza, Argentina
+2380,Rosario, Argentina
+2381,Montevideo, Uruguay
+2382,Valparaiso, Chile
+2383,Concepcion, Chile
+2384,Medellin, Colombia
+2385,Cali, Colombia
+2386,Quito, Ecuador
+2387,Guayaquil, Ecuador
+2388,Caracas, Venezuela
+2389,Panama City, Panama
+2390,San Jose, Costa Rica
+2391,Guatemala City, Guatemala
+2392,Havana, Cuba
+2393,Santo Domingo, Dominican Republic
+2394,San Juan, Puerto Rico
+2395,Kingston, Jamaica
+2396,Nassau, Bahamas
+2397,Tijuana, Mexico
+2398,Cancun, Mexico
+2399,Puebla, Mexico
+2400,Queretaro, Mexico
+2133,Birmingham, UK
+2297,Minsk, Belarus
+2298,Kyiv, Ukraine
+2257,Nottingham, UK
+2075,Madrid, Spain
+2300,Kharkiv, Ukraine
+2312,Kobe, Japan
+2303,Novosibirsk, Russia
+2347,Quezon City, Philippines
+2185,Kyoto, Japan
+2076,Barcelona, Spain
+2313,Hiroshima, Japan
+2184,Nagoya, Japan
+2172,Bangalore, India
+2159,Valencia, Spain
+2362,Tunis, Tunisia
+2175,Hyderabad, India
+2177,Pune, India
+2353,Jerusalem, Israel
+2352,Haifa, Israel
+2358,Amman, Jordan
+2359,Beirut, Lebanon
+2056,London, UK
+2176,Chennai, India
+2354,Jeddah, Saudi Arabia
