@@ -3,8 +3,161 @@ from visualization import GraphTool
 from qiskit import QuantumCircuit, QuantumRegister, ClassicalRegister
 import json
 from pathlib import Path
+import psycopg2
+from dotenv import load_dotenv
+import os
+
+# Load environment variables for Supabase connection
+load_dotenv()
 
 SESSION_FILE = Path("session.json")
+
+def get_db_connection():
+    """Create and return a database connection"""
+    try:
+        connection = psycopg2.connect(
+            user=os.getenv("user"),
+            password=os.getenv("password"),
+            host=os.getenv("host"),
+            port=os.getenv("port"),
+            dbname=os.getenv("dbname")
+        )
+        return connection
+    except Exception as e:
+        print(f"⚠ Database connection failed: {e}")
+        return None
+
+def get_node_owned_status(node_id):
+    """Get a node's owned status from Supabase
+    Returns: None (not found), 0 (not owned), 1 (owned), 2 (skipped due to failures)
+    """
+    conn = get_db_connection()
+    if not conn:
+        return None
+    
+    try:
+        cursor = conn.cursor()
+        cursor.execute("""
+            SELECT owned 
+            FROM nodes 
+            WHERE node_id = %s
+        """, (node_id,))
+        result = cursor.fetchone()
+        cursor.close()
+        conn.close()
+        
+        if result:
+            return result[0]
+        else:
+            return None
+    except Exception as e:
+        print(f"  ✗ Database error getting node status: {e}")
+        conn.close()
+        return None
+
+def update_node_owned(node_id, owned=1):
+    """Update a node's owned status in Supabase
+    owned=0: not owned
+    owned=1: successfully owned
+    owned=2: skipped (too many failures)
+    """
+    conn = get_db_connection()
+    if not conn:
+        return False
+    
+    try:
+        cursor = conn.cursor()
+        cursor.execute("""
+            UPDATE nodes 
+            SET owned = %s
+            WHERE node_id = %s
+        """, (owned, node_id))
+        conn.commit()
+        rows_updated = cursor.rowcount
+        cursor.close()
+        conn.close()
+        
+        if rows_updated > 0:
+            status_msg = "owned (success)" if owned == 1 else "skipped (too many fails)" if owned == 2 else f"status={owned}"
+            print(f"  📊 Database: Set node '{node_id}' {status_msg}")
+            return True
+        else:
+            print(f"  ⚠ Database: Node '{node_id}' not found")
+            return False
+    except Exception as e:
+        print(f"  ✗ Database error updating node: {e}")
+        conn.close()
+        return False
+
+def update_edge_weights(from_node_id, to_node_id, x_weight=None, y_weight=None):
+    """Update edge weights in Supabase after probing"""
+    conn = get_db_connection()
+    if not conn:
+        return False
+    
+    try:
+        cursor = conn.cursor()
+        
+        # Get node IDs
+        cursor.execute("SELECT id FROM nodes WHERE node_id = %s", (from_node_id,))
+        from_result = cursor.fetchone()
+        
+        cursor.execute("SELECT id FROM nodes WHERE node_id = %s", (to_node_id,))
+        to_result = cursor.fetchone()
+        
+        if not from_result or not to_result:
+            print(f"  ⚠ Database: Could not find nodes for edge")
+            cursor.close()
+            conn.close()
+            return False
+        
+        from_id = from_result[0]
+        to_id = to_result[0]
+        
+        # Update edge weights
+        updates = []
+        values = []
+        
+        if x_weight is not None:
+            updates.append("x_weight = %s")
+            values.append(x_weight)
+        
+        if y_weight is not None:
+            updates.append("y_weight = %s")
+            values.append(y_weight)
+        
+        if not updates:
+            cursor.close()
+            conn.close()
+            return False
+        
+        values.extend([from_id, to_id])
+        
+        query = f"""
+            UPDATE edges 
+            SET {', '.join(updates)}
+            WHERE from_node_id = %s AND to_node_id = %s
+        """
+        
+        cursor.execute(query, values)
+        conn.commit()
+        rows_updated = cursor.rowcount
+        cursor.close()
+        conn.close()
+        
+        if rows_updated > 0:
+            weight_str = f"x={x_weight:.3f}" if x_weight is not None else ""
+            if y_weight is not None:
+                weight_str += f" y={y_weight:.3f}" if weight_str else f"y={y_weight:.3f}"
+            print(f"  📊 Database: Updated edge ({from_node_id}, {to_node_id}) {weight_str}")
+            return True
+        else:
+            print(f"  ⚠ Database: Edge not found")
+            return False
+    except Exception as e:
+        print(f"  ✗ Database error updating edge: {e}")
+        conn.close()
+        return False
 
 def save_session(client):
     if client.api_token:
@@ -53,8 +206,8 @@ else:
     client = GameClient()
     
     # CHANGE THESE to your unique values
-    PLAYER_ID = "Failrure"
-    PLAYER_NAME = "TEST PLAYER"
+    PLAYER_ID = "testerman4"
+    PLAYER_NAME = "Flip Flipplesin"
     
     result = client.register(PLAYER_ID, PLAYER_NAME, location="remote")
     
@@ -114,7 +267,7 @@ else:
             print()
         
         # Automatic selection: choose the highest-ranked node
-        AUTO_SELECT = False  # Set to False for manual selection
+        AUTO_SELECT = True  # Set to False for manual selection
         
         if AUTO_SELECT:
             best = ranked_candidates[0]
@@ -433,7 +586,18 @@ def probe_edge_attempt(client: GameClient, edge_id, *, apply_x: bool = False):
 
    d = result['data']
    status = 'CLAIMED' if d.get('success') else 'probed'
-   print(f"{edge}: {status} F={d.get('fidelity', 0):.3f} P={d.get('success_probability', 0):.3f} thr={d.get('threshold', 0):.3f}")
+   fidelity = d.get('fidelity', 0)
+   print(f"{edge}: {status} F={fidelity:.3f} P={d.get('success_probability', 0):.3f} thr={d.get('threshold', 0):.3f}")
+   
+   # Save to database based on probe type
+   from_node, to_node = edge
+   if apply_x:
+       # This is the X-probe, save as x_weight
+       update_edge_weights(from_node, to_node, x_weight=float(fidelity))
+   else:
+       # This is the raw probe, save as y_weight  
+       update_edge_weights(from_node, to_node, y_weight=float(fidelity))
+   
    return result
 
 
@@ -713,6 +877,13 @@ def rank_claimable_edges(client: Any, *, assumed_success_cost: int = 2) -> List[
        if not owned_node or not new_node:
            continue
 
+       # Check if new_node is already owned or skipped in database
+       owned_status = get_node_owned_status(new_node)
+       if owned_status is not None and owned_status > 0:
+           # Node is already owned (1) or skipped (2), don't rank this edge
+           print(f"  ⊗ Skipping edge to {new_node} (DB owned status: {owned_status})")
+           continue
+
        new_info = gi.nodes.get(new_node, {})
        owned_info = gi.nodes.get(owned_node, {})
 
@@ -774,6 +945,7 @@ print("STARTING MAIN GAME LOOP")
 print("="*60)
 
 _edge_fail_counts = {}
+MAX_FAILS_BEFORE_SKIP = 10  # Configurable threshold
 iteration = 0
 
 while True:
@@ -790,12 +962,12 @@ while True:
         print("\n✗ OUT OF BUDGET! Game over.")
         break
     
-    # Get ranked edges
+    # Get ranked edges (this now filters out owned nodes automatically)
     assumed_cost = 1 if budget <= 2 else 2
     ranked = rank_claimable_edges(client, assumed_success_cost=assumed_cost)
     
     if not ranked:
-        print("No claimable edges. Game over.")
+        print("No claimable edges (all reachable nodes are owned or skipped). Game over.")
         break
     
     # Show top edges
@@ -817,8 +989,17 @@ while True:
     # Target the best spendable edge
     target = spendable[0]
     edge_id = tuple(target['edge_id'])
+    new_node = target['new_node']
     
-    print(f"\n→ Targeting edge {edge_id} thr={target['base_threshold']:.3f} -> {target['new_node']}")
+    print(f"\n→ Targeting edge {edge_id} thr={target['base_threshold']:.3f} -> {new_node}")
+    
+    # Check current fail count for this edge
+    current_fails = int(_edge_fail_counts.get(edge_id, 0) or 0)
+    if current_fails >= MAX_FAILS_BEFORE_SKIP:
+        print(f"⚠ Edge {edge_id} has failed {current_fails} times - marking node {new_node} as skipped (owned=2)")
+        update_node_owned(new_node, owned=2)
+        _edge_fail_counts[edge_id] = 0  # Reset counter for this edge
+        continue  # Move to next iteration
     
     # Knobs
     ENABLE_RECON = True
@@ -830,6 +1011,9 @@ while True:
         recon = recon_noise_type_for_edge(client, edge_id, margin=RECON_MARGIN)
         if recon.get('claimed'):
             print('✓ Claimed via probe!')
+            # Update database: mark the new node as owned
+            update_node_owned(new_node, owned=1)
+            _edge_fail_counts[edge_id] = 0  # Reset fail counter on success
             continue  # Skip to next iteration
         else:
             bias = recon.get('bias', 'mixed')
@@ -894,13 +1078,23 @@ while True:
             any_success = True
             full_miss = False
             print(f"  ✓ SUCCESS with {label}!")
+            
+            # Update database: mark the new node as owned
+            update_node_owned(new_node, owned=1)
+            _edge_fail_counts[edge_id] = 0  # Reset fail counter on success
+            
             break
     
     if any_success:
-        _edge_fail_counts[edge_id] = 0
+        # Already reset in the success block above
+        pass
     elif full_miss:
         _edge_fail_counts[edge_id] = fails + 1
         print(f"  ⚠ All attempts failed. fails[{edge_id}]={_edge_fail_counts[edge_id]}")
+        
+        # Check if we've hit the max failure threshold
+        if _edge_fail_counts[edge_id] >= MAX_FAILS_BEFORE_SKIP:
+            print(f"  ⚠ Reached {MAX_FAILS_BEFORE_SKIP} failures - will skip this node next iteration")
 
 print("\n" + "="*60)
 print("GAME LOOP COMPLETE")
